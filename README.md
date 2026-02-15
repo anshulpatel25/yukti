@@ -14,6 +14,18 @@ A clean, idiomatic Go application for managing battery charging based on capacit
 - Graceful shutdown support
 - Full unit test coverage
 
+## ⚠️ Important: Android Device Requirements
+
+**WARNING: Yukti requires a ROOTED Android device to function properly.**
+
+This application needs write access to `/sys/class/power_supply/battery/charging_enabled`, which is only available with root privileges. On Android devices, this means:
+
+- Your device **must be rooted** (using Magisk, SuperSU, or similar)
+- The application must be granted root/superuser permissions
+- Standard (non-rooted) Android devices **will not work**
+
+Without root access, the application cannot control the charging behavior and will fail when attempting to manage battery charging.
+
 ## Architecture
 
 The application follows clean architecture principles:
@@ -45,7 +57,7 @@ go build -o yukti
 
 ### Build for ARM64 (Cross-Compilation)
 
-For ARM64 Linux devices (Raspberry Pi, Android, AWS Graviton, etc.):
+For ARM64 Linux devices (Raspberry Pi, Android with root, AWS Graviton, etc.):
 
 ```bash
 GOOS=linux GOARCH=arm64 go build -o yukti-arm64
@@ -58,7 +70,7 @@ GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o yukti-arm64
 ```
 
 **Other ARM64 targets:**
-- Android: `GOOS=android GOARCH=arm64`
+- Android: `GOOS=android GOARCH=arm64` **⚠️ Requires rooted device - see warning above**
 - macOS (Apple Silicon): `GOOS=darwin GOARCH=arm64`
 
 ### Run
