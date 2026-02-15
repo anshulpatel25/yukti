@@ -1,0 +1,17 @@
+name: Trigger Draft Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to create release from'
+        required: false
+        type: string
+        default: 'main'
+
+jobs:
+  trigger-draft-release:
+    uses: ./.github/workflows/draft-release.yml
+    with:
+      branch: ${{ inputs.branch }}
+    secrets: inherit
