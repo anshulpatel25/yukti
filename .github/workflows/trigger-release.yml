@@ -9,6 +9,9 @@ on:
         type: string
         default: 'main'
 
+permissions:
+  contents: write
+
 jobs:
   trigger-draft-release:
     uses: ./.github/workflows/draft-release.yml
