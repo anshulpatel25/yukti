@@ -20,7 +20,7 @@ A clean, idiomatic Go application for managing battery charging based on capacit
 
 This application needs write access to `/sys/class/power_supply/battery/charging_enabled`, which is only available with root privileges. On Android devices, this means:
 
-- Your device **must be rooted** (using Magisk, SuperSU, or similar)
+- Your device **must be rooted** (using Magisk, KernelSU, or similar)
 - The application must be granted root/superuser permissions
 - Standard (non-rooted) Android devices **will not work**
 
