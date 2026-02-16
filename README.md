@@ -20,7 +20,7 @@ A clean, idiomatic Go application for managing battery charging based on capacit
 
 This application needs write access to `/sys/class/power_supply/battery/charging_enabled`, which is only available with root privileges. On Android devices, this means:
 
-- Your device **must be rooted** (using Magisk, KernelSU, or similar)
+- Your device **must be rooted** (using Magisk or similar)
 - The application must be granted root/superuser permissions
 - Standard (non-rooted) Android devices **will not work**
 
@@ -51,7 +51,7 @@ The application follows clean architecture principles:
 
 ### Build for ARM64 (Cross-Compilation)
 
-For ARM64 Linux devices (Raspberry Pi, Android with root, AWS Graviton, etc.):
+For ARM64 Linux devices (Android with root):
 
 ```bash
 GOOS=linux GOARCH=arm64 go build -o yukti
@@ -118,6 +118,8 @@ This prevents the battery from constantly switching between charging and not cha
 > **Note**: Before first time deployment, ensure that the battery state of charge is greater than 80%.
 
 ### Termux (Recommended for Android)
+
+Termux should be granted with the `superuser` permissions using Magisk or similar.
 
 **Installation**
 
