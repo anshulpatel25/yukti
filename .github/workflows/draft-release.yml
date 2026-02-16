@@ -135,6 +135,7 @@ jobs:
         with:
           tag_name: ${{ steps.calculate_version.outputs.new_tag }}
           name: Release ${{ steps.calculate_version.outputs.new_tag }}
+          target_commitish: ${{ github.sha }}
           body_path: release_notes.md
           draft: true
           prerelease: false
