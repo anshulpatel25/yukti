@@ -122,6 +122,7 @@ This prevents the battery from constantly switching between charging and not cha
 **Installation**
 
 - Install sudo package: `pkg install sudo`.
+- Install termux services: `pkg install termux-services`.
 - Download the latest ARM64 binary from the releases page.
 - Create a directory for Yukti: `mkdir -p $HOME/yukti`.
 - Place the downloaded `yukti` binary in `$HOME/yukti`.
