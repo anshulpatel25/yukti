@@ -126,7 +126,7 @@ The workflows require:
 
 - Uses `GITHUB_TOKEN` automatically provided by GitHub Actions
 - No custom secrets required
-- All actions pinned to specific versions
+- All actions pinned to major versions
 
 ## Troubleshooting
 
