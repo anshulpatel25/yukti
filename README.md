@@ -49,29 +49,13 @@ The application follows clean architecture principles:
 
 ## Usage
 
-### Build for Native Platform
-
-```bash
-go build -o yukti
-```
-
 ### Build for ARM64 (Cross-Compilation)
 
 For ARM64 Linux devices (Raspberry Pi, Android with root, AWS Graviton, etc.):
 
 ```bash
-GOOS=linux GOARCH=arm64 go build -o yukti-arm64
+GOOS=linux GOARCH=arm64 go build -o yukti
 ```
-
-For optimized build with reduced binary size:
-
-```bash
-GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o yukti-arm64
-```
-
-**Other ARM64 targets:**
-- Android: `GOOS=android GOARCH=arm64` **⚠️ Requires rooted device - see warning above**
-- macOS (Apple Silicon): `GOOS=darwin GOARCH=arm64`
 
 ### Run
 
@@ -131,29 +115,28 @@ This prevents the battery from constantly switching between charging and not cha
 
 ## Deployment
 
-### Systemd Service (Recommended)
+> **Note**: Before first time deployment, ensure that the battery state of charge is greater than 80%.
 
-Create `/etc/systemd/system/yukti.service`:
+### Termux (Recommended for Android)
 
-```ini
-[Unit]
-Description=Yukti Battery Charging Manager
-After=network.target
+**Installation**
 
-[Service]
-Type=simple
-ExecStart=/usr/local/bin/yukti
-Restart=always
-RestartSec=10
+- Install sudo package: `pkg install sudo`.
+- Download the latest ARM64 binary from the releases page.
+- Create a directory for Yukti: `mkdir -p $HOME/yukti`.
+- Place the downloaded `yukti` binary in `$HOME/yukti`.
+- Grant execute permissions: `chmod +x $HOME/yukti/yukti`.
 
-[Install]
-WantedBy=multi-user.target
+**Service**
+
+- Create `/data/data/com.termux/files/usr/var/service/yukti/run` with the following content:
+
+```sh
+#!/data/data/com.termux/files/usr/bin/sh
+
+exec sudo $HOME/yukti/yukti > $HOME/yukti/yukti.log 2>&1
 ```
 
-Enable and start:
-
-```bash
-sudo systemctl enable yukti
-sudo systemctl start yukti
-sudo systemctl status yukti
-```
+- Grant execute permissions: `chmod +x /data/data/com.termux/files/usr/var/service/yukti/run`
+- Enable the service: `sv-enable yukti`
+- Start the service: `sv up yukti`
