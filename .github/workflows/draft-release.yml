@@ -1,7 +1,7 @@
 name: Draft Release
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       branch:
         description: 'Branch to create release from'
@@ -19,13 +19,13 @@ jobs:
     
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ inputs.branch || 'main' }}
       
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: '1.21'
       
@@ -79,9 +79,9 @@ jobs:
       
       - name: Build ARM64 binary
         run: |
-          GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o yukti-arm64
-          chmod +x yukti-arm64
-          tar -czf yukti-arm64-linux.tar.gz yukti-arm64
+          GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o yukti
+          chmod +x yukti
+          tar -czf yukti-arm64-linux.tar.gz yukti
           echo "Binary built and archived successfully"
       
       - name: Generate release notes
@@ -118,7 +118,7 @@ jobs:
             echo "tar -xzf yukti-arm64-linux.tar.gz"
             echo ""
             echo "# Move to system path (optional)"
-            echo "sudo mv yukti-arm64 /usr/local/bin/yukti"
+            echo "sudo mv yukti /usr/local/bin/yukti"
             echo ""
             echo "# Run (requires root privileges)"
             echo "sudo yukti"

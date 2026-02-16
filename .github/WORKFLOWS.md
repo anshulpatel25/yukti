@@ -1,12 +1,12 @@
 # GitHub Workflows Documentation
 
-This repository contains GitHub Actions workflows for automated release management.
+This repository contains a GitHub Actions workflow for automated release management.
 
-## Workflows
+## Workflow
 
-### 1. Draft Release Workflow (`draft-release.yml`)
+### Draft Release Workflow (`draft-release.yml`)
 
-This is a reusable workflow that creates draft releases with ARM64 binaries.
+This workflow creates draft releases with ARM64 binaries and can be triggered manually.
 
 #### Features
 
@@ -22,34 +22,10 @@ This is a reusable workflow that creates draft releases with ARM64 binaries.
 
 #### Usage
 
-This workflow is designed to be called by other workflows using `workflow_call`:
-
-```yaml
-jobs:
-  release:
-    uses: ./.github/workflows/draft-release.yml
-    with:
-      branch: 'main'
-    secrets: inherit
-```
-
-#### Inputs
-
-- `branch` (optional): The branch to create the release from. Default: `main`
-
-#### Requirements
-
-- The workflow must be triggered from the `main` branch
-- Repository must have `contents: write` permissions
-
-### 2. Trigger Release Workflow (`trigger-release.yml`)
-
-This workflow provides a manual trigger for creating draft releases.
-
-#### Usage
+This workflow is triggered manually via GitHub Actions UI:
 
 1. Go to the **Actions** tab in your GitHub repository
-2. Select **Trigger Draft Release** from the workflows list
+2. Select **Draft Release** from the workflows list
 3. Click **Run workflow**
 4. (Optional) Specify a branch or leave as `main`
 5. Click **Run workflow** button
@@ -59,6 +35,15 @@ The workflow will:
 2. Calculate the next version based on commits
 3. Generate release notes
 4. Create a draft release with the binary attached
+
+#### Inputs
+
+- `branch` (optional): The branch to create the release from. Default: `main`
+
+#### Requirements
+
+- The workflow must be triggered from the `main` branch
+- Repository must have `contents: write` permissions
 
 ### Version Numbering
 
@@ -116,7 +101,7 @@ wget https://github.com/anshulpatel25/yukti/releases/download/v0.1.0/yukti-arm64
 tar -xzf yukti-arm64-linux.tar.gz
 
 # Move to system path (optional)
-sudo mv yukti-arm64 /usr/local/bin/yukti
+sudo mv yukti /usr/local/bin/yukti
 
 # Run (requires root privileges)
 sudo yukti
@@ -128,8 +113,8 @@ sudo yukti
 
 All actions are from trusted sources:
 
-- **actions/checkout@v4**: Official GitHub action for repository checkout
-- **actions/setup-go@v5**: Official GitHub action for Go setup
+- **actions/checkout@v6**: Official GitHub action for repository checkout
+- **actions/setup-go@v6**: Official GitHub action for Go setup
 - **softprops/action-gh-release@v2**: Popular action for creating releases (46k+ stars)
 
 ### Permissions
@@ -199,7 +184,7 @@ Potential improvements for the workflow:
 tar -xzf yukti-arm64-linux.tar.gz
 
 # Move to system path (optional)
-sudo mv yukti-arm64 /usr/local/bin/yukti
+sudo mv yukti /usr/local/bin/yukti
 
 # Run (requires root privileges)
 sudo yukti
