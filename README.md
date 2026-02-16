@@ -115,14 +115,17 @@ This prevents the battery from constantly switching between charging and not cha
 
 ## Deployment
 
+> **Note**: Before first time deployment, ensure that the battery state of charge is greater than 80%.
+
 ### Termux (Recommended for Android)
 
 **Installation**
 
+- Install sudo package: `pkg install sudo`.
 - Download the latest ARM64 binary from the releases page.
-- Create a directory for Yukti: `mkdir -p $HOME/yukti`
-- Place the downloaded `yukti` binary in `$HOME/yukti`
-- Grant execute permissions: `chmod +x $HOME/yukti/yukti`
+- Create a directory for Yukti: `mkdir -p $HOME/yukti`.
+- Place the downloaded `yukti` binary in `$HOME/yukti`.
+- Grant execute permissions: `chmod +x $HOME/yukti/yukti`.
 
 **Service**
 
