@@ -80,6 +80,7 @@ go test -cover ./battery
 ## Configuration
 
 The battery paths are currently hardcoded in `main.go`:
+
 - Capacity: `/sys/class/power_supply/battery/capacity`
 - Charging control: `/sys/class/power_supply/battery/charging_enabled`
 
@@ -91,11 +92,11 @@ The application implements **hysteresis** to prevent rapid charge cycling, which
 
 ### Behavior
 
-| Battery Level | Action | Reason |
-|--------------|--------|---------|
-| ≤ 40% | **Enable charging** | Prevent battery depletion |
-| 41% - 69% | **Maintain current state** | Hysteresis zone - no change |
-| ≥ 70% | **Disable charging** | Optimal charge level for battery health |
+| Battery Level | Action                     | Reason                                  |
+| ------------- | -------------------------- | --------------------------------------- |
+| ≤ 40%         | **Enable charging**        | Prevent battery depletion               |
+| 41% - 69%     | **Maintain current state** | Hysteresis zone - no change             |
+| ≥ 70%         | **Disable charging**       | Optimal charge level for battery health |
 
 ### Example Charging Cycle
 
@@ -137,9 +138,24 @@ Termux should be granted with the `superuser` permissions using Magisk or simila
 ```sh
 #!/data/data/com.termux/files/usr/bin/sh
 
-exec sudo $HOME/yukti/yukti > $HOME/yukti/yukti.log 2>&1
+exec sudo $HOME/yukti/yukti
+```
+
+- Create folder `/data/data/com.termux/files/usr/var/service/yukti/log` and under it link `run` file:
+
+```sh
+mkdir -p /data/data/com.termux/files/usr/var/service/yukti/log
+ln -sf /data/data/com.termux/files/usr/share/termux-services/svlogger run
 ```
 
 - Grant execute permissions: `chmod +x /data/data/com.termux/files/usr/var/service/yukti/run`
 - Enable the service: `sv-enable yukti`
 - Start the service: `sv up yukti`
+
+## License
+
+See [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
